@@ -1,78 +1,25 @@
 import * as React from 'react';
 import { Page } from '../../Page';
-import { Card } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-const items = [
-  {
-    header: 'docs-viewer',
-    description: 'create a template of the viewer needed for the wix docs team',
-    meta: 'v1.0.1',
-  },
-  {
-    header: 'docs-component',
-    description: 'create a template for the component used by wix docs',
-    meta: 'v2.0.1',
-  },
-  {
-    header: 'docs-viewer',
-    description: 'create a template of the viewer needed for the wix docs team',
-    meta: 'v1.0.1',
-  },
-  {
-    header: 'docs-component',
-    description: 'create a template for the component used by wix docs',
-    meta: 'v2.0.1',
-  },
-  {
-    header: 'docs-viewer',
-    description: 'create a template of the viewer needed for the wix docs team',
-    meta: 'v1.0.1',
-  },
-  {
-    header: 'docs-component',
-    description: 'create a template for the component used by wix docs',
-    meta: 'v2.0.1',
-  },
-  {
-    header: 'docs-viewer',
-    description: 'create a template of the viewer needed for the wix docs team',
-    meta: 'v1.0.1',
-  },
-  {
-    header: 'docs-component',
-    description: 'create a template for the component used by wix docs',
-    meta: 'v2.0.1',
-  },
-  {
-    header: 'docs-viewer',
-    description: 'create a template of the viewer needed for the wix docs team',
-    meta: 'v1.0.1',
-  },
-  {
-    header: 'docs-component',
-    description: 'create a template for the component used by wix docs',
-    meta: 'v2.0.1',
-  },
-  {
-    header: 'docs-viewer',
-    description: 'create a template of the viewer needed for the wix docs team',
-    meta: 'v1.0.1',
-  },
-  {
-    header: 'docs-component',
-    description: 'create a template for the component used by wix docs',
-    meta: 'v2.0.1',
-  },
-];
+import { Loader } from 'semantic-ui-react';
+import { methods } from '../../../API';
+import { useApi } from '../../../hooks/useApi';
+import { TemplatesGroup } from './TemplatesGroup';
 
-export const MyTemplatesPage = ({ children }) => {
+export const MyTemplatesPage = (props) => {
+  const { isFetching, hasError, data: templates } = useApi(
+    methods.fetchUserTemplates,
+    { user: 'gal' },
+    [],
+  );
   return (
     <Page title={'My templates'}>
-      <Card.Group>
-        {items.map((item) => (
-          <Card {...item} as={Link} link to={`/my-templates/${item.header}`} />
-        ))}
-      </Card.Group>
+      {isFetching ? (
+        <Loader active size='large'>
+          Loading
+        </Loader>
+      ) : (
+        <TemplatesGroup templates={templates} />
+      )}
     </Page>
   );
 };

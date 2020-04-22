@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Header } from './components/Header';
 import { Switch, Route } from 'react-router-dom';
-import { MyTemplatesPage, TemplatePage } from './components/pages';
+import { MyTemplatesPage, TemplatePage, HomePage } from './components/pages';
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       <Header />
       <Switch>
         <Route exact path='/my-templates' component={MyTemplatesPage} />
+
         <Route
           exact
           path='/my-templates/:templateId'
@@ -18,6 +19,8 @@ function App() {
         />
 
         <Route exact path='/create-template' component={MyTemplatesPage} />
+
+        <Route exact path='/home' component={HomePage} />
 
         <Route path='/' component={MyTemplatesPage} />
       </Switch>
